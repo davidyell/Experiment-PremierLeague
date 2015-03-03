@@ -30,6 +30,15 @@ class TeamsTable extends Table
             'targetForeignKey' => 'player_id',
             'joinTable' => 'players_teams'
         ]);
+
+        $this->hasMany('HomeMatches', [
+            'foreignKey' => 'home_team_id',
+            'className' => 'App\Model\Table\MatchesTable'
+        ]);
+        $this->hasMany('AwayMatches', [
+            'foreignKey' => 'away_team_id',
+            'className' => 'App\Model\Table\MatchesTable'
+        ]);
     }
 
     /**
