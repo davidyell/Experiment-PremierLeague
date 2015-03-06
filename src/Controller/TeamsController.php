@@ -61,7 +61,7 @@ class TeamsController extends AppController
                 $this->Flash->error('The team could not be saved. Please, try again.');
             }
         }
-        $players = $this->Teams->Players->find('list', ['limit' => 200]);
+        $players = $this->Teams->Players->find('list', ['keyField' => 'id', 'valueField' => 'FullName']);
         $this->set(compact('team', 'players'));
         $this->set('_serialize', ['team']);
     }
@@ -79,7 +79,7 @@ class TeamsController extends AppController
             'contain' => ['Players']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $team = $this->Teams->patchEntity($team, $this->request->data);
+            $team = $this->Teams->patchEntity($team, $this->request->data());
             if ($this->Teams->save($team)) {
                 $this->Flash->success('The team has been saved.');
                 return $this->redirect(['action' => 'index']);
@@ -87,7 +87,7 @@ class TeamsController extends AppController
                 $this->Flash->error('The team could not be saved. Please, try again.');
             }
         }
-        $players = $this->Teams->Players->find('list', ['limit' => 200]);
+        $players = $this->Teams->Players->find('list', ['keyField' => 'id', 'valueField' => 'FullName']);
         $this->set(compact('team', 'players'));
         $this->set('_serialize', ['team']);
     }

@@ -9,12 +9,15 @@
         "cakephp/cakephp": "3.0.*-dev",
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "dev-master",
-        "cakephp/plugin-installer": "*"
+        "cakephp/plugin-installer": "*",
+        "davidyell/proffer": "0.0.8"
     },
     "require-dev": {
         "d11wtq/boris": "1.0.*",
         "cakephp/debug_kit": "3.0.*-dev",
-        "cakephp/bake": "dev-master"
+        "cakephp/bake": "dev-master",
+        "phpunit/phpunit": "4.5.0",
+        "squizlabs/php_codesniffer": "~2.2"
     },
     "suggest": {
         "phpunit/phpunit": "Allows automated tests to be run without system-wide install.",

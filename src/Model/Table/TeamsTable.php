@@ -1,9 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Team;
-use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -12,6 +9,12 @@ use Cake\Validation\Validator;
  */
 class TeamsTable extends Table
 {
+
+    protected function _initializeSchema(\Cake\Database\Schema\Table $table)
+    {
+        $table->columnType('image', 'proffer.file');
+        return $table;
+    }
 
     /**
      * Initialize method
@@ -24,7 +27,17 @@ class TeamsTable extends Table
         $this->table('teams');
         $this->displayField('name');
         $this->primaryKey('id');
+
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Proffer.Proffer', [
+            'image' => [
+                'dir' => 'image_dir',
+                'thumbnailSizes' => [
+                    'square' => ['w' => 100, 'h' => 100]
+                ]
+            ]
+        ]);
+
         $this->belongsToMany('Players', [
             'foreignKey' => 'team_id',
             'targetForeignKey' => 'player_id',
@@ -39,6 +52,9 @@ class TeamsTable extends Table
             'foreignKey' => 'away_team_id',
             'className' => 'App\Model\Table\MatchesTable'
         ]);
+
+        $listener = new \App\Event\UploadFilenameListener();
+        $this->eventManager()->on($listener);
     }
 
     /**

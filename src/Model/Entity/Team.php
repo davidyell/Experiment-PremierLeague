@@ -17,5 +17,7 @@ class Team extends Entity
     protected $_accessible = [
         'name' => true,
         'match' => true,
+        'image' => true,
+        'image_dir' => true
     ];
 }
